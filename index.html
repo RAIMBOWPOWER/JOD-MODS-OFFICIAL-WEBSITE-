@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JOD MODS | Premium App Store</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --panel:#171717;
+      --muted:#9b9b9b;
+      --accent1:#7b2cff;
+      --accent2:#ff4fcf;
+      --accent3:#00e0ff;
+      --card:#1f1f1f;
+      --glass: rgba(255,255,255,0.03);
+      --radius:20px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: radial-gradient( circle at 10% 10%, rgba(40,40,40,0.12), transparent 10%),
+                  radial-gradient( circle at 90% 90%, rgba(10,200,120,0.03), transparent 10%),
+                  var(--bg);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x: hidden;
+    }
+
+    /* subtle network lines background */
+    .network-bg{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image: radial-gradient(circle at 10% 10%, rgba(0,0,0,0.0), transparent 5%);
+      z-index:0;
+      opacity:0.9;
+    }
+    /* SVG dots/lines placed for aesthetic */
+    .network-bg svg{
+      width:100%;
+      height:100%;
+      display:block;
+      mix-blend-mode:overlay;
+      opacity:0.45;
+    }
+
+    /* Particle animation container */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .page{
+      position:relative;
+      z-index:2;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:28px;
+      padding:36px 20px;
+      box-sizing:border-box;
+    }
+
+    header{
+      width:100%;
+      max-width:1000px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:18px;
+    }
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: perspective(800px) rotateY(15deg) rotateX(10deg);
+      box-shadow: 
+        0 15px 35px rgba(0,0,0,0.5),
+        0 5px 15px rgba(123,44,255,0.3),
+        inset 0 0 20px rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      transition: transform 0.5s ease;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: perspective(800px) rotateY(15deg) rotateX(10deg) translateY(0); }
+      50% { transform: perspective(800px) rotateY(15deg) rotateX(10deg) translateY(-10px); }
+    }
+
+    .profile-photo:hover {
+      transform: perspective(800px) rotateY(0deg) rotateX(0deg) translateY(-5px);
+      animation: none;
+    }
+
+    .profile-photo img {
+      width: 90%;
+      height: 90%;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: brightness(1.1) contrast(1.1);
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .profile-name {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(123,44,255,0.3);
+    }
+
+    /* Updated profile headline styling */
+    .profile-headline {
+      font-size: 20px;
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      position: relative;
+      display: inline-block;
+      padding: 8px 16px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(123,44,255,0.4);
+      border: 1px solid rgba(123,44,255,0.3);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(123,44,255,0.2);
+    }
+
+    /* Fixed brand styling - removed box container */
+    .brand{
+      font-size:40px;
+      font-weight:700;
+      letter-spacing:1px;
+      background: linear-gradient(90deg,var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform:uppercase;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      text-shadow: 0 0 15px rgba(123,44,255,0.3);
+      position: relative;
+    }
+
+    /* small stacked lines like in screenshot */
+    .brand .stack {
+      font-size:18px;
+      background: linear-gradient(90deg,var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      color:transparent;
+    }
+
+    /* Search bar */
+    .search-wrap{
+      width:100%;
+      max-width:520px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:40px;
+      padding:12px 18px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      transition: all 0.3s ease;
+    }
+
+    .search-wrap:focus-within {
+      box-shadow: 0 4px 20px rgba(123,44,255,0.2), inset 0 1px 0 rgba(255,255,255,0.02);
+      border: 1px solid rgba(123,44,255,0.2);
+    }
+
+    .search-wrap input{
+      flex:1;
+      background:transparent;
+      border:0;
+      outline:0;
+      color:#cfcfcf;
+      font-size:16px;
+      padding:6px 0;
+    }
+    .search-icon{
+      width:22px;height:22px;opacity:0.85;
+    }
+
+    /* Content area */
+    .content{
+      width:100%;
+      max-width:960px;
+      display:flex;
+      flex-wrap: wrap;
+      justify-content:center;
+      gap: 24px;
+    }
+
+    /* App card */
+    .app-card{
+      width:220px;
+      min-height:280px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border-radius:20px;
+      padding:18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.05);
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
+      transform-origin:center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.3;
+    }
+
+    .app-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 20px rgba(123,44,255,0.2);
+    }
+
+    .app-thumb{
+      width:84px;height:84px;border-radius:20px;overflow:hidden;
+      background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:flex;align-items:center;justify-content:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 20px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .app-thumb::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.5;
+    }
+
+    .app-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+
+    .app-title{
+      text-align:center;
+      font-weight:700;
+      letter-spacing:0.6px;
+      font-size:16px;
+      line-height:1.1;
+      margin-top:4px;
+    }
+
+    .download-btn{
+      margin-top:auto;
+      width:140px;
+      padding:12px 18px;
+      border-radius:32px;
+      font-weight:700;
+      text-align:center;
+      background:linear-gradient(90deg,var(--accent1), var(--accent2));
+      color:white;
+      border:0;
+      cursor:pointer;
+      box-shadow: 0 8px 30px rgba(123,44,255,0.12), 0 2px 6px rgba(0,0,0,0.5);
+      transition: transform .12s ease, box-shadow .12s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .download-btn:hover {
+      box-shadow: 0 10px 35px rgba(123,44,255,0.2), 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    .download-btn:hover::before {
+      left: 100%;
+    }
+
+    .download-btn:active{ transform: translateY(2px); }
+
+    /* Not found message */
+    .not-found {
+      width: 100%;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-size: 18px;
+      display: none;
+      background: rgba(15,15,25,0.8);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    footer{
+      width:100%;
+      margin-top:28px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,0.03);
+      color:var(--muted);
+      text-align:center;
+      font-size:15px;
+      background: rgba(15,15,25,0.8);
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 800px;
+    }
+
+    /* Premium badge - SAB APPS KE LIYE */
+    .premium-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: linear-gradient(45deg, #00e0ff, #7b2cff);
+      color: #fff;
+      font-weight: 800;
+      font-size: 10px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0,224,255,0.4);
+      z-index: 10;
+      border: 1px solid rgba(0,224,255,0.3);
+    }
+
+    /* small screens adjustments */
+    @media (max-width:768px){
+      .content {
+        justify-content: center;
+      }
+      .profile-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+    }
+    
+    @media (max-width:420px){
+      .brand{ font-size:34px; }
+      .app-card{ width:200px; min-height:260px; padding:14px; }
+      .download-btn{ width:150px; }
+      .profile-name { font-size: 24px; }
+      .profile-headline { font-size: 16px; padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle animation container -->
+  <div id="particles-js"></div>
+  
+  <div class="network-bg" aria-hidden="true">
+    <!-- Decorative SVG network: dots & lines -->
+    <svg preserveAspectRatio="none" viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0" stop-color="#00ffb3" stop-opacity="0.12"/>
+          <stop offset="1" stop-color="#00a6ff" stop-opacity="0.06"/>
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="url(#g1)" stroke-width="0.2" stroke-linecap="round">
+        <!-- random connecting lines -->
+        <polyline points="10,30 30,20 45,38 70,30 85,10" />
+        <polyline points="15,90 40,110 55,95 80,105 95,80" />
+        <polyline points="5,160 35,150 60,170 95,160" />
+      </g>
+      <!-- dots -->
+      <g fill="#00ffb3" opacity="0.18">
+        <circle cx="10" cy="30" r="0.9"/>
+        <circle cx="30" cy="20" r="0.9"/>
+        <circle cx="45" cy="38" r="0.9"/>
+        <circle cx="70" cy="30" r="0.9"/>
+        <circle cx="85" cy="10" r="0.9"/>
+
+        <circle cx="15" cy="90" r="0.9"/>
+        <circle cx="40" cy="110" r="0.9"/>
+        <circle cx="55" cy="95" r="0.9"/>
+        <circle cx="80" cy="105" r="0.9"/>
+        <circle cx="95" cy="80" r="0.9"/>
+
+        <circle cx="5" cy="160" r="0.9"/>
+        <circle cx="35" cy="150" r="0.9"/>
+        <circle cx="60" cy="170" r="0.9"/>
+        <circle cx="95" cy="160" r="0.9"/>
+      </g>
+    </svg>
+  </div>
+
+  <main class="page">
+    <header>
+      <div class="profile-section">
+        <div class="profile-photo">
+          <img src="https://i.ibb.co/JjCQ6KHG/x.jpg" alt="Profile Photo">
+        </div>
+        <div class="profile-info">
+          <div class="profile-name">JOD MODS</div>
+          <div class="profile-headline">STUDENT & DEVELOPER</div>
+        </div>
+      </div>
+
+      <div class="brand">
+        JOD MODS OFFICIAL APP STORE
+        <span class="stack">≡</span>
+      </div>
+
+      <div class="search-wrap" role="search" aria-label="Search apps">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 21l-4.35-4.35" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="11" cy="11" r="5" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" fill="none"/>
+        </svg>
+        <input type="search" id="q" placeholder="Search for apps..." autocomplete="off" />
+      </div>
+    </header>
+
+    <section class="content">
+      <!-- App cards will be dynamically generated -->
+      <div class="not-found" id="not-found">NO APPS FOUND MATCHING YOUR SEARCH</div>
+    </section>
+
+    <footer>
+      © 2025 JOD MODS OFFICIAL APP STORE. ALL RIGHTS RESERVED.
+    </footer>
+  </main>
+
+  <!-- Include particles.js library -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+  <script>
+    // Initialize particles.js with SKY BLUE NEON CYBER style
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: {
+            value: 120,
+            density: {
+              enable: true,
+              value_area: 800
+            }
+          },
+          color: {
+            value: ["#00e0ff", "#00a6ff", "#00fffc"]
+          },
+          shape: {
+            type: "circle",
+            stroke: {
+              width: 0,
+              color: "#000000"
+            }
+          },
+          opacity: {
+            value: 0.7,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 1,
+              opacity_min: 0.3,
+              sync: false
+            }
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 3,
+              size_min: 0.5,
+              sync: false
+            }
+          },
+          line_linked: {
+            enable: true,
+            distance: 120,
+            color: "#00e0ff",
+            opacity: 0.4,
+            width: 1.2
+          },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: {
+              enable: false,
+              rotateX: 600,
+              rotateY: 1200
+            }
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: {
+              enable: true,
+              mode: "grab"
+            },
+            onclick: {
+              enable: true,
+              mode: "push"
+            },
+            resize: true
+          },
+          modes: {
+            grab: {
+              distance: 160,
+              line_linked: {
+                opacity: 0.8
+              }
+            },
+            push: {
+              particles_nb: 6
+            }
+          }
+        },
+        retina_detect: true
+      });
+    });
+
+    // Sample app data with correct URLs
+    const apps = [
+      {
+        id: 1,
+        name: "JOD MODS OFFICIAL CHANNEL🫶",
+        icon: "https://i.ibb.co/JjCQ6KHG/x.jpg",
+        buttonText: "JOIN",
+        actionUrl: "https://t.me/+iAqG140fdf9kYzVl"
+      },
+      {
+        id: 2,
+        name: "SUBSCRIBER TO MY CHANNEL❤️",
+        icon: "https://i.ibb.co/1fKrwrzX/x.jpg",
+        buttonText: "SUBSCRIBE",
+        actionUrl: "https://youtube.com/@jodxcheats_12?si=j__VFl4s5KorVJM5"
+      },
+      {
+        id: 3,
+        name: "FOLLOW ME ON INSTAGRAM🎀",
+        icon: "https://i.ibb.co/Y7HqSTjb/x.jpg",
+        buttonText: "FOLLOW",
+        actionUrl: "https://www.instagram.com/jodxgamers?igsh=MmsweHdlNm1vbHQ4"
+      },
+      {
+        id: 4,
+        name: "JOIN WHATSAPP CHANNEL 🫥",
+        icon: "https://i.ibb.co/Zpqz9n33/x.jpg",
+        buttonText: "JOIN WHATSAPP",
+        actionUrl: "https://whatsapp.com/channel/0029VbAVdQo4yltKfthn201e"
+      },
+      {
+        id: 5,
+        name: "OWNER",
+        icon: "https://i.ibb.co/JRFgqNpj/x.jpg",
+        buttonText: "CONTACT OWNER",
+        actionUrl: "tg://openmessage?user_id=6745501529"
+      },
+      {
+        id: 6,
+        name: "HOW TO EARN MONEY WITHOUT INVESTMENT",
+        icon: "https://i.ibb.co/rKD4QbLf/x.jpg",
+        buttonText: "EARN MONEY",
+        actionUrl: "https://youtu.be/1qMAQ3_DX_g?si=U1ejpnJUIzl9JSfP"
+      }
+    ];
+
+    // Function to render app cards
+    function renderApps(appsToRender) {
+      const content = document.querySelector('.content');
+      const notFound = document.getElementById('not-found');
+      
+      // Clear existing content
+      content.innerHTML = '';
+      content.appendChild(notFound);
+      
+      if (appsToRender.length === 0) {
+        notFound.style.display = 'block';
+        return;
+      }
+      
+      notFound.style.display = 'none';
+      
+      appsToRender.forEach(app => {
+        const appCard = document.createElement('article');
+        appCard.className = 'app-card';
+        appCard.setAttribute('aria-label', `App: ${app.name}`);
+        
+        // SAB APPS MEIN PREMIUM BADGE
+        const premiumBadge = '<div class="premium-badge">Premium</div>';
+        
+        appCard.innerHTML = `
+          ${premiumBadge}
+          <div class="app-thumb">
+            <img src="${app.icon}" alt="${app.name} icon" oncontextmenu="return false;" draggable="false">
+          </div>
+          <div class="app-title">${app.name}</div>
+          <button class="download-btn" onclick="performAction(${app.id})">${app.buttonText}</button>
+        `;
+        
+        content.appendChild(appCard);
+      });
+    }
+
+    // Function to handle app action
+    function performAction(appId) {
+      const app = apps.find(a => a.id === appId);
+      if (!app) return;
+      
+      if (app.actionUrl === '#') {
+        alert(`Action for "${app.name}" is not configured.`);
+        return;
+      }
+      
+      // Open in new tab to prevent direct URL access
+      window.open(app.actionUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    // Search functionality
+    const searchInput = document.getElementById('q');
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      if (searchTerm === '') {
+        renderApps(apps);
+        return;
+      }
+      
+      const filteredApps = apps.filter(app => 
+        app.name.toLowerCase().includes(searchTerm)
+      );
+      
+      renderApps(filteredApps);
+    });
+
+    // Initial render
+    renderApps(apps);
+
+    // Prevent right-click context menu on images
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Prevent drag and drop of images
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Disable text selection on app cards
+    document.addEventListener('selectstart', function(e) {
+      if (e.target.closest('.app-card')) {
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
+</body>
+</html>
