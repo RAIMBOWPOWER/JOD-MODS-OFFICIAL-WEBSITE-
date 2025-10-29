@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>JOD MODS | Premium App Store</title>
+  <title>JOD MODS | PREMIUM APP STORE</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -32,6 +32,19 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       overflow-x: hidden;
+      /* Disable text selection */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Enable text selection only for search input */
+    input {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
     }
 
     /* subtle network lines background */
@@ -129,6 +142,7 @@
       border-radius: 50%;
       object-fit: cover;
       filter: brightness(1.1) contrast(1.1);
+      pointer-events: none;
     }
 
     .profile-info {
@@ -304,7 +318,13 @@
       opacity: 0.5;
     }
 
-    .app-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+    .app-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      pointer-events: none;
+    }
 
     .app-title{
       text-align:center;
@@ -592,7 +612,7 @@
       });
     });
 
-    // Sample app data with correct URLs
+    // Sample app data with correct URLs - INCLUDING THE 7TH APP
     const apps = [
       {
         id: 1,
@@ -635,6 +655,13 @@
         icon: "https://i.ibb.co/rKD4QbLf/x.jpg",
         buttonText: "EARN MONEY",
         actionUrl: "https://youtu.be/1qMAQ3_DX_g?si=U1ejpnJUIzl9JSfP"
+      },
+      {
+        id: 7,
+        name: "ABHAY EVENING AREA",
+        icon: "https://i.ibb.co/W4Xk3pDy/x.jpg",
+        buttonText: "JOIN FAST",
+        actionUrl: "https://t.me/+7_L2j4iqNow5ZmE1"
       }
     ];
 
@@ -665,7 +692,7 @@
         appCard.innerHTML = `
           ${premiumBadge}
           <div class="app-thumb">
-            <img src="${app.icon}" alt="${app.name} icon" oncontextmenu="return false;" draggable="false">
+            <img src="${app.icon}" alt="${app.name} icon">
           </div>
           <div class="app-title">${app.name}</div>
           <button class="download-btn" onclick="performAction(${app.id})">${app.buttonText}</button>
@@ -709,12 +736,10 @@
     // Initial render
     renderApps(apps);
 
-    // Prevent right-click context menu on images
+    // Prevent right-click context menu on entire page
     document.addEventListener('contextmenu', function(e) {
-      if (e.target.tagName === 'IMG') {
-        e.preventDefault();
-        return false;
-      }
+      e.preventDefault();
+      return false;
     });
 
     // Prevent drag and drop of images
@@ -727,10 +752,48 @@
 
     // Disable text selection on app cards
     document.addEventListener('selectstart', function(e) {
-      if (e.target.closest('.app-card')) {
+      if (e.target.closest('.app-card') || e.target.closest('.profile-section')) {
         e.preventDefault();
         return false;
       }
+    });
+
+    // Additional protection: Disable developer tools
+    document.addEventListener('keydown', function(e) {
+      // Disable F12
+      if(e.key === 'F12') {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Disable Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+Shift+J
+      if(e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Disable right click
+      if(e.button === 2) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Protect against image download extensions
+    document.addEventListener('mousedown', function(e) {
+      if (e.target.tagName === 'IMG') {
+        // Prevent default action for right click
+        if (e.button === 2) {
+          e.preventDefault();
+          return false;
+        }
+      }
+    });
+
+    // Disable image dragging
+    const allImages = document.querySelectorAll('img');
+    allImages.forEach(img => {
+      img.setAttribute('draggable', 'false');
     });
   </script>
 </body>
