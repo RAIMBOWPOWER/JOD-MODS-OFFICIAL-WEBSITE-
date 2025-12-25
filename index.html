@@ -149,6 +149,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      width: 100%;
     }
 
     .profile-name {
@@ -183,7 +184,100 @@
       box-shadow: 0 0 20px rgba(123,44,255,0.2);
     }
 
-    /* Fixed brand styling - removed box container */
+    /* Profile Bio Styling */
+    .profile-bio {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 18px;
+      background: rgba(15,15,25,0.8);
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-top: 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .bio-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+    }
+
+    .bio-label {
+      font-weight: 700;
+      color: var(--accent3);
+      min-width: 80px;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .bio-value {
+      color: #fff;
+      font-weight: 400;
+      background: rgba(123,44,255,0.1);
+      padding: 4px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(123,44,255,0.2);
+      flex: 1;
+    }
+
+    /* About Me Section - FIXED TO SHOW FULL CONTENT */
+    .about-me {
+      width: 100%;
+      max-width: 1000px;
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(123,44,255,0.05), rgba(255,79,207,0.03));
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-top: 20px;
+      position: relative;
+      overflow: visible;
+      box-sizing: border-box;
+    }
+
+    .about-me::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.2;
+    }
+
+    .about-title {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(123,44,255,0.3);
+    }
+
+    .about-text {
+      color: #cfcfcf;
+      font-size: 16px;
+      line-height: 1.6;
+      text-align: justify;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Fixed brand styling */
     .brand{
       font-size:40px;
       font-weight:700;
@@ -198,6 +292,7 @@
       gap:8px;
       text-shadow: 0 0 15px rgba(123,44,255,0.3);
       position: relative;
+      margin-top: 15px;
     }
 
     /* small stacked lines like in screenshot */
@@ -208,7 +303,7 @@
       color:transparent;
     }
 
-    /* Search bar */
+    /* Search bar - FIXED (removed "Q." from placeholder) */
     .search-wrap{
       width:100%;
       max-width:520px;
@@ -221,6 +316,7 @@
       gap:12px;
       border:1px solid rgba(255,255,255,0.03);
       transition: all 0.3s ease;
+      margin-top: 15px;
     }
 
     .search-wrap:focus-within {
@@ -236,6 +332,7 @@
       color:#cfcfcf;
       font-size:16px;
       padding:6px 0;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
     }
     .search-icon{
       width:22px;height:22px;opacity:0.85;
@@ -249,6 +346,7 @@
       flex-wrap: wrap;
       justify-content:center;
       gap: 24px;
+      margin-top: 20px;
     }
 
     /* App card */
@@ -292,6 +390,31 @@
       box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 20px rgba(123,44,255,0.2);
     }
 
+    /* Special premium styling for first 2 apps */
+    .app-card.premium-special {
+      background: linear-gradient(135deg, rgba(123,44,255,0.1), rgba(255,79,207,0.05));
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(123,44,255,0.3);
+      animation: premium-glow 3s infinite alternate;
+    }
+
+    @keyframes premium-glow {
+      0% { box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(123,44,255,0.3); }
+      100% { box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 35px rgba(123,44,255,0.5); }
+    }
+
+    .app-card.premium-special::before {
+      opacity: 0.5;
+    }
+
+    .app-card.premium-special .app-thumb {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 20px rgba(0,0,0,0.6), 0 0 15px rgba(123,44,255,0.4);
+    }
+
+    .app-card.premium-special .download-btn {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      box-shadow: 0 8px 30px rgba(123,44,255,0.3), 0 2px 6px rgba(0,0,0,0.5);
+    }
+
     .app-thumb{
       width:84px;height:84px;border-radius:20px;overflow:hidden;
       background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -333,6 +456,7 @@
       font-size:16px;
       line-height:1.1;
       margin-top:4px;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
     }
 
     .download-btn{
@@ -350,6 +474,7 @@
       transition: transform .12s ease, box-shadow .12s ease;
       position: relative;
       overflow: hidden;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
     }
 
     .download-btn::before {
@@ -398,6 +523,7 @@
       border-radius: 15px;
       padding: 20px;
       max-width: 800px;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
     }
 
     /* Premium badge - SAB APPS KE LIYE */
@@ -416,6 +542,19 @@
       box-shadow: 0 4px 15px rgba(0,224,255,0.4);
       z-index: 10;
       border: 1px solid rgba(0,224,255,0.3);
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Special premium badge for first 2 apps */
+    .premium-special .premium-badge {
+      background: linear-gradient(45deg, #ff4fcf, #00e0ff, #7b2cff);
+      box-shadow: 0 4px 20px rgba(0,224,255,0.6);
+      animation: badge-glow 2s infinite alternate;
+    }
+
+    @keyframes badge-glow {
+      0% { box-shadow: 0 4px 15px rgba(0,224,255,0.4); }
+      100% { box-shadow: 0 4px 25px rgba(0,224,255,0.8); }
     }
 
     /* small screens adjustments */
@@ -428,14 +567,33 @@
         text-align: center;
         gap: 15px;
       }
+      .bio-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      .bio-label {
+        min-width: auto;
+      }
+      .brand {
+        font-size: 32px;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+      }
     }
     
     @media (max-width:420px){
-      .brand{ font-size:34px; }
+      .brand{ font-size:28px; }
       .app-card{ width:200px; min-height:260px; padding:14px; }
       .download-btn{ width:150px; }
       .profile-name { font-size: 24px; }
       .profile-headline { font-size: 16px; padding: 6px 12px; }
+      .about-title { font-size: 18px; }
+      .about-text { font-size: 14px; }
+      .page {
+        padding: 20px 15px;
+      }
     }
   </style>
 </head>
@@ -489,6 +647,34 @@
         <div class="profile-info">
           <div class="profile-name">JOD MODS</div>
           <div class="profile-headline">STUDENT & DEVELOPER</div>
+          
+          <!-- Added Bio Section -->
+          <div class="profile-bio">
+            <div class="bio-item">
+              <span class="bio-label">NAME:</span>
+              <span class="bio-value">JOD MODS</span>
+            </div>
+            <div class="bio-item">
+              <span class="bio-label">AGE:</span>
+              <span class="bio-value">18+</span>
+            </div>
+            <div class="bio-item">
+              <span class="bio-label">LOCATION:</span>
+              <span class="bio-value">INDIA</span>
+            </div>
+            <div class="bio-item">
+              <span class="bio-label">INTEREST:</span>
+              <span class="bio-value">FF & BGMI HACK, TELEGRAM BOT, WEBSITE MAKING MANY MORE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Me Section - NOW FULLY VISIBLE -->
+      <div class="about-me">
+        <div class="about-title">ABOUT JOD MODS</div>
+        <div class="about-text">
+          Hello! I'm JOD MODS, a passionate developer and student from India with expertise in creating mods and hacks for popular games like Free Fire and BGMI. I specialize in developing Telegram bots, creating websites, and sharing my knowledge with the community. With a focus on quality and innovation, I provide premium tools and resources to enhance your gaming experience. My mission is to create useful tools that help gamers and developers alike. Join my community to stay updated with the latest mods, hacks, and earning opportunities!
         </div>
       </div>
 
@@ -497,6 +683,7 @@
         <span class="stack">≡</span>
       </div>
 
+      <!-- Search bar - FIXED (removed "Q." from placeholder) -->
       <div class="search-wrap" role="search" aria-label="Search apps">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M21 21l-4.35-4.35" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round"/>
@@ -612,57 +799,53 @@
       });
     });
 
-    // Sample app data with correct URLs - INCLUDING THE 7TH APP
+    // Updated app data with removed apps and new app at 2nd position
     const apps = [
       {
         id: 1,
         name: "JOD MODS OFFICIAL CHANNEL🫶",
         icon: "https://i.ibb.co/JjCQ6KHG/x.jpg",
         buttonText: "JOIN",
-        actionUrl: "https://t.me/+iAqG140fdf9kYzVl"
+        actionUrl: "https://t.me/+iAqG140fdf9kYzVl",
+        isPremium: true // First app gets premium styling
       },
       {
         id: 2,
+        name: "JOD MODS EARNING",
+        icon: "https://i.ibb.co/4wsDBv7V/x.jpg",
+        buttonText: "JOIN",
+        actionUrl: "https://t.me/JOD_EARNING_AREA",
+        isPremium: true // Second app gets premium styling
+      },
+      {
+        id: 3,
         name: "SUBSCRIBER TO MY CHANNEL❤️",
         icon: "https://i.ibb.co/1fKrwrzX/x.jpg",
         buttonText: "SUBSCRIBE",
         actionUrl: "https://youtube.com/@jodxcheats_12?si=j__VFl4s5KorVJM5"
       },
       {
-        id: 3,
+        id: 4,
         name: "FOLLOW ME ON INSTAGRAM🎀",
         icon: "https://i.ibb.co/Y7HqSTjb/x.jpg",
         buttonText: "FOLLOW",
         actionUrl: "https://www.instagram.com/jodxgamers?igsh=MmsweHdlNm1vbHQ4"
       },
       {
-        id: 4,
+        id: 5,
         name: "JOIN WHATSAPP CHANNEL 🫥",
         icon: "https://i.ibb.co/Zpqz9n33/x.jpg",
         buttonText: "JOIN WHATSAPP",
         actionUrl: "https://whatsapp.com/channel/0029VbAVdQo4yltKfthn201e"
       },
       {
-        id: 5,
+        id: 6,
         name: "OWNER",
         icon: "https://i.ibb.co/JRFgqNpj/x.jpg",
         buttonText: "CONTACT OWNER",
         actionUrl: "tg://openmessage?user_id=6745501529"
-      },
-      {
-        id: 6,
-        name: "HOW TO EARN MONEY WITHOUT INVESTMENT",
-        icon: "https://i.ibb.co/rKD4QbLf/x.jpg",
-        buttonText: "EARN MONEY",
-        actionUrl: "https://youtu.be/1qMAQ3_DX_g?si=U1ejpnJUIzl9JSfP"
-      },
-      {
-        id: 7,
-        name: " HOW TO EARN MONEY WITH ABHAY EARNING AREA",
-        icon: "https://i.ibb.co/4wsDBv7V/x.jpg",
-        buttonText: "JOIN FAST",
-        actionUrl: "https://t.me/+7_L2j4iqNow5ZmE1"
       }
+      // Removed the last 2 apps about earning money
     ];
 
     // Function to render app cards
@@ -684,9 +867,15 @@
       appsToRender.forEach(app => {
         const appCard = document.createElement('article');
         appCard.className = 'app-card';
+        
+        // Add premium-special class for first 2 apps
+        if (app.isPremium) {
+          appCard.classList.add('premium-special');
+        }
+        
         appCard.setAttribute('aria-label', `App: ${app.name}`);
         
-        // SAB APPS MEIN PREMIUM BADGE
+        // Premium badge for all apps
         const premiumBadge = '<div class="premium-badge">Premium</div>';
         
         appCard.innerHTML = `
