@@ -1,71 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JOD MODS | PREMIUM APP STORE</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
   <style>
-    :root{
-      --bg:#0b0b0b;
-      --panel:#171717;
-      --muted:#9b9b9b;
-      --accent1:#7b2cff;
-      --accent2:#ff4fcf;
-      --accent3:#00e0ff;
-      --card:#1f1f1f;
-      --glass: rgba(255,255,255,0.03);
-      --radius:20px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-      background: radial-gradient( circle at 10% 10%, rgba(40,40,40,0.12), transparent 10%),
-                  radial-gradient( circle at 90% 90%, rgba(10,200,120,0.03), transparent 10%),
-                  var(--bg);
-      color:#fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    :root {
+      --primary: #7c3aed;
+      --secondary: #c026d3;
+      --accent: #06b6d4;
+      --dark: #030712;
+      --darker: #020617;
+      --light: #f8fafc;
+      --gray: #1e293b;
+      --glow: rgba(124, 58, 237, 0.5);
+      --neon: rgba(6, 182, 212, 0.5);
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
       overflow-x: hidden;
-      /* Disable text selection */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
+      position: relative;
       user-select: none;
+      -webkit-user-select: none;
     }
 
-    /* Enable text selection only for search input */
-    input {
-      -webkit-user-select: text;
-      -moz-user-select: text;
-      -ms-user-select: text;
-      user-select: text;
+    /* Custom Cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.1s ease;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
     }
 
-    /* subtle network lines background */
-    .network-bg{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image: radial-gradient(circle at 10% 10%, rgba(0,0,0,0.0), transparent 5%);
-      z-index:0;
-      opacity:0.9;
-    }
-    /* SVG dots/lines placed for aesthetic */
-    .network-bg svg{
-      width:100%;
-      height:100%;
-      display:block;
-      mix-blend-mode:overlay;
-      opacity:0.45;
+    .cursor-follower {
+      width: 40px;
+      height: 40px;
+      background: rgba(124, 58, 237, 0.1);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.3s ease;
+      transform: translate(-50%, -50%);
+      backdrop-filter: blur(2px);
     }
 
-    /* Particle animation container */
+    /* Particles Background */
     #particles-js {
       position: fixed;
       width: 100%;
@@ -73,298 +77,329 @@
       top: 0;
       left: 0;
       z-index: 1;
-      pointer-events: none;
     }
 
-    .page{
-      position:relative;
-      z-index:2;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:28px;
-      padding:36px 20px;
-      box-sizing:border-box;
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
     }
 
-    header{
-      width:100%;
-      max-width:1000px;
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      gap:18px;
+    /* Glass Morphism Effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
-    .profile-section {
+    /* Header Section */
+    header {
+      margin-bottom: 50px;
+    }
+
+    .profile-wrapper {
       display: flex;
       align-items: center;
-      gap: 20px;
-      margin-bottom: 20px;
-      width: 100%;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(192, 38, 211, 0.1));
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      margin-bottom: 30px;
     }
 
-    .profile-photo {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* 3D Avatar */
+    .avatar-3d {
+      width: 150px;
+      height: 150px;
       position: relative;
       transform-style: preserve-3d;
-      transform: perspective(800px) rotateY(15deg) rotateX(10deg);
-      box-shadow: 
-        0 15px 35px rgba(0,0,0,0.5),
-        0 5px 15px rgba(123,44,255,0.3),
-        inset 0 0 20px rgba(255,255,255,0.1);
-      border: 2px solid rgba(255,255,255,0.1);
-      overflow: hidden;
-      transition: transform 0.5s ease;
       animation: float 6s ease-in-out infinite;
     }
 
     @keyframes float {
-      0%, 100% { transform: perspective(800px) rotateY(15deg) rotateX(10deg) translateY(0); }
-      50% { transform: perspective(800px) rotateY(15deg) rotateX(10deg) translateY(-10px); }
+      0%, 100% { transform: translateY(0px) rotateY(0deg); }
+      50% { transform: translateY(-20px) rotateY(10deg); }
     }
 
-    .profile-photo:hover {
-      transform: perspective(800px) rotateY(0deg) rotateX(0deg) translateY(-5px);
-      animation: none;
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      padding: 3px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
     }
 
-    .profile-photo img {
-      width: 90%;
-      height: 90%;
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      filter: brightness(1.1) contrast(1.1);
-      pointer-events: none;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .avatar-glow {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--glow), transparent 70%);
+      filter: blur(20px);
+      opacity: 0.5;
+      z-index: -1;
     }
 
     .profile-info {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .profile-name {
-      font-size: 28px;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-shadow: 0 0 10px rgba(123,44,255,0.3);
-    }
-
-    /* Updated profile headline styling */
-    .profile-headline {
-      font-size: 20px;
-      color: #fff;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      position: relative;
-      display: inline-block;
-      padding: 8px 16px;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 15px rgba(123,44,255,0.4);
-      border: 1px solid rgba(123,44,255,0.3);
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(123,44,255,0.2);
-    }
-
-    /* Profile Bio Styling */
-    .profile-bio {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 18px;
-      background: rgba(15,15,25,0.8);
-      border-radius: 15px;
-      border: 1px solid rgba(255,255,255,0.05);
-      margin-top: 15px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .bio-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
-    }
-
-    .bio-label {
-      font-weight: 700;
-      color: var(--accent3);
-      min-width: 80px;
-      text-transform: uppercase;
-      font-size: 13px;
-      letter-spacing: 1px;
-    }
-
-    .bio-value {
-      color: #fff;
-      font-weight: 400;
-      background: rgba(123,44,255,0.1);
-      padding: 4px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(123,44,255,0.2);
       flex: 1;
     }
 
-    /* About Me Section - FIXED TO SHOW FULL CONTENT */
-    .about-me {
-      width: 100%;
-      max-width: 1000px;
-      padding: 24px;
-      background: linear-gradient(135deg, rgba(123,44,255,0.05), rgba(255,79,207,0.03));
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.05);
-      margin-top: 20px;
-      position: relative;
-      overflow: visible;
-      box-sizing: border-box;
+    .profile-name {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
-    .about-me::before {
+    .profile-title {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .title-badge {
+      background: var(--gradient);
+      padding: 5px 15px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Bio Cards */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .bio-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .bio-card:hover {
+      transform: translateY(-5px);
+      background: rgba(124, 58, 237, 0.1);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+    }
+
+    .bio-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .bio-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .bio-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* About Section - SHORT VERSION */
+    .about-section {
+      padding: 25px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-section::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 20px;
-      padding: 1px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.2;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+      opacity: 0.1;
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .about-title {
       font-size: 22px;
       font-weight: 700;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .about-title i {
+      color: var(--primary);
+    }
+
+    .about-text {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      font-size: 15px;
+      position: relative;
+      z-index: 2;
+      max-width: 90%;
+    }
+
+    /* Brand Section */
+    .brand {
+      text-align: center;
+      margin: 40px 0 30px;
+    }
+
+    .brand-text {
+      font-size: 36px;
+      font-weight: 800;
+      background: var(--gradient);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(123,44,255,0.3);
-    }
-
-    .about-text {
-      color: #cfcfcf;
-      font-size: 16px;
-      line-height: 1.6;
-      text-align: justify;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Fixed brand styling */
-    .brand{
-      font-size:40px;
-      font-weight:700;
-      letter-spacing:1px;
-      background: linear-gradient(90deg,var(--accent1), var(--accent2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-transform:uppercase;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      text-shadow: 0 0 15px rgba(123,44,255,0.3);
+      letter-spacing: 4px;
       position: relative;
-      margin-top: 15px;
+      display: inline-block;
     }
 
-    /* small stacked lines like in screenshot */
-    .brand .stack {
-      font-size:18px;
-      background: linear-gradient(90deg,var(--accent1), var(--accent2));
-      -webkit-background-clip: text;
-      color:transparent;
+    .brand-text::before,
+    .brand-text::after {
+      content: '✦';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-size: 24px;
+      opacity: 0.5;
     }
 
-    /* Search bar - FIXED (removed "Q." from placeholder) */
-    .search-wrap{
-      width:100%;
-      max-width:520px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:40px;
-      padding:12px 18px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-      display:flex;
-      align-items:center;
-      gap:12px;
-      border:1px solid rgba(255,255,255,0.03);
+    .brand-text::before {
+      left: -40px;
+    }
+
+    .brand-text::after {
+      right: -40px;
+    }
+
+    /* Search Bar */
+    .search-wrapper {
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 60px;
+      padding: 5px 5px 5px 25px;
       transition: all 0.3s ease;
-      margin-top: 15px;
     }
 
-    .search-wrap:focus-within {
-      box-shadow: 0 4px 20px rgba(123,44,255,0.2), inset 0 1px 0 rgba(255,255,255,0.02);
-      border: 1px solid rgba(123,44,255,0.2);
+    .search-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
     }
 
-    .search-wrap input{
-      flex:1;
-      background:transparent;
-      border:0;
-      outline:0;
-      color:#cfcfcf;
-      font-size:16px;
-      padding:6px 0;
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-    }
-    .search-icon{
-      width:22px;height:22px;opacity:0.85;
+    .search-box i {
+      color: rgba(255, 255, 255, 0.5);
     }
 
-    /* Content area */
-    .content{
-      width:100%;
-      max-width:960px;
-      display:flex;
-      flex-wrap: wrap;
-      justify-content:center;
-      gap: 24px;
-      margin-top: 20px;
+    .search-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 15px;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
     }
 
-    /* App card */
-    .app-card{
-      width:220px;
-      min-height:280px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border-radius:20px;
-      padding:18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.05);
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      align-items:center;
-      transform-origin:center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .search-box input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .search-btn {
+      background: var(--gradient);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Apps Grid */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px 0;
+    }
+
+    .app-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      padding: 30px 20px;
+      text-align: center;
       position: relative;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       overflow: hidden;
     }
 
@@ -375,613 +410,600 @@
       left: 0;
       right: 0;
       bottom: 0;
-      border-radius: 20px;
-      padding: 1px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.3;
+      background: radial-gradient(circle at top right, var(--glow), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
     .app-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 20px rgba(123,44,255,0.2);
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
     }
 
-    /* Special premium styling for first 2 apps */
-    .app-card.premium-special {
-      background: linear-gradient(135deg, rgba(123,44,255,0.1), rgba(255,79,207,0.05));
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(123,44,255,0.3);
-      animation: premium-glow 3s infinite alternate;
+    .app-card:hover::before {
+      opacity: 0.3;
     }
 
-    @keyframes premium-glow {
-      0% { box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(123,44,255,0.3); }
-      100% { box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 35px rgba(123,44,255,0.5); }
-    }
-
-    .app-card.premium-special::before {
-      opacity: 0.5;
-    }
-
-    .app-card.premium-special .app-thumb {
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 20px rgba(0,0,0,0.6), 0 0 15px rgba(123,44,255,0.4);
-    }
-
-    .app-card.premium-special .download-btn {
-      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
-      box-shadow: 0 8px 30px rgba(123,44,255,0.3), 0 2px 6px rgba(0,0,0,0.5);
-    }
-
-    .app-thumb{
-      width:84px;height:84px;border-radius:20px;overflow:hidden;
-      background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      display:flex;align-items:center;justify-content:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 20px rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.05);
-      position: relative;
-    }
-
-    .app-thumb::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 20px;
-      padding: 1px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.5;
-    }
-
-    .app-thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      pointer-events: none;
-    }
-
-    .app-title{
-      text-align:center;
-      font-weight:700;
-      letter-spacing:0.6px;
-      font-size:16px;
-      line-height:1.1;
-      margin-top:4px;
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
-    }
-
-    .download-btn{
-      margin-top:auto;
-      width:140px;
-      padding:12px 18px;
-      border-radius:32px;
-      font-weight:700;
-      text-align:center;
-      background:linear-gradient(90deg,var(--accent1), var(--accent2));
-      color:white;
-      border:0;
-      cursor:pointer;
-      box-shadow: 0 8px 30px rgba(123,44,255,0.12), 0 2px 6px rgba(0,0,0,0.5);
-      transition: transform .12s ease, box-shadow .12s ease;
-      position: relative;
-      overflow: hidden;
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
-    }
-
-    .download-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .download-btn:hover {
-      box-shadow: 0 10px 35px rgba(123,44,255,0.2), 0 4px 8px rgba(0,0,0,0.5);
-    }
-
-    .download-btn:hover::before {
-      left: 100%;
-    }
-
-    .download-btn:active{ transform: translateY(2px); }
-
-    /* Not found message */
-    .not-found {
-      width: 100%;
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--muted);
-      font-size: 18px;
-      display: none;
-      background: rgba(15,15,25,0.8);
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    footer{
-      width:100%;
-      margin-top:28px;
-      padding-top:22px;
-      border-top:1px solid rgba(255,255,255,0.03);
-      color:var(--muted);
-      text-align:center;
-      font-size:15px;
-      background: rgba(15,15,25,0.8);
-      border-radius: 15px;
-      padding: 20px;
-      max-width: 800px;
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-    }
-
-    /* Premium badge - SAB APPS KE LIYE */
     .premium-badge {
       position: absolute;
-      top: -10px;
+      top: 20px;
       right: 20px;
-      background: linear-gradient(45deg, #00e0ff, #7b2cff);
+      background: var(--gradient);
       color: #fff;
-      font-weight: 800;
-      font-size: 10px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 15px;
+      border-radius: 30px;
       letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(0,224,255,0.4);
-      z-index: 10;
-      border: 1px solid rgba(0,224,255,0.3);
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
     }
 
-    /* Special premium badge for first 2 apps */
-    .premium-special .premium-badge {
-      background: linear-gradient(45deg, #ff4fcf, #00e0ff, #7b2cff);
-      box-shadow: 0 4px 20px rgba(0,224,255,0.6);
-      animation: badge-glow 2s infinite alternate;
+    .app-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      position: relative;
     }
 
-    @keyframes badge-glow {
-      0% { box-shadow: 0 4px 15px rgba(0,224,255,0.4); }
-      100% { box-shadow: 0 4px 25px rgba(0,224,255,0.8); }
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      border-radius: 25px;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    /* small screens adjustments */
-    @media (max-width:768px){
-      .content {
-        justify-content: center;
-      }
-      .profile-section {
+    .app-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .app-btn {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, var(--glow), transparent);
+      transform: translate(-50%, -50%);
+      transition: all 0.5s ease;
+    }
+
+    .app-btn:hover {
+      background: var(--gradient);
+      border-color: transparent;
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+    }
+
+    .app-btn:hover::before {
+      width: 200px;
+      height: 200px;
+      opacity: 0.3;
+    }
+
+    /* Premium Special Cards */
+    .app-card.premium-special {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(192, 38, 211, 0.15));
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+    }
+
+    .app-card.premium-special::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: var(--gradient);
+      border-radius: 32px;
+      z-index: -1;
+      animation: borderGlow 3s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .app-card.premium-special .app-btn {
+      background: var(--gradient);
+      border: none;
+    }
+
+    /* Not Found Message */
+    .not-found {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 20px;
+      display: none;
+    }
+
+    .not-found i {
+      font-size: 60px;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 70px;
+      padding: 35px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 40px;
+    }
+
+    .footer-text {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--gradient);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .profile-wrapper {
         flex-direction: column;
         text-align: center;
+        padding: 20px;
+      }
+
+      .profile-name {
+        font-size: 36px;
+      }
+
+      .brand-text {
+        font-size: 24px;
+      }
+
+      .brand-text::before,
+      .brand-text::after {
+        display: none;
+      }
+
+      .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+
+      .bio-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-text {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-name {
+        font-size: 28px;
+      }
+
+      .apps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
         gap: 15px;
       }
-      .bio-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-      }
-      .bio-label {
-        min-width: auto;
-      }
-      .brand {
-        font-size: 32px;
-        text-align: center;
+
+      .search-box input {
         width: 100%;
-        justify-content: center;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 30px;
       }
-    }
-    
-    @media (max-width:420px){
-      .brand{ font-size:28px; }
-      .app-card{ width:200px; min-height:260px; padding:14px; }
-      .download-btn{ width:150px; }
-      .profile-name { font-size: 24px; }
-      .profile-headline { font-size: 16px; padding: 6px 12px; }
-      .about-title { font-size: 18px; }
-      .about-text { font-size: 14px; }
-      .page {
-        padding: 20px 15px;
+
+      .search-btn {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Particle animation container -->
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Particles Background -->
   <div id="particles-js"></div>
-  
-  <div class="network-bg" aria-hidden="true">
-    <!-- Decorative SVG network: dots & lines -->
-    <svg preserveAspectRatio="none" viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="g1" x1="0" x2="1">
-          <stop offset="0" stop-color="#00ffb3" stop-opacity="0.12"/>
-          <stop offset="1" stop-color="#00a6ff" stop-opacity="0.06"/>
-        </linearGradient>
-      </defs>
-      <g fill="none" stroke="url(#g1)" stroke-width="0.2" stroke-linecap="round">
-        <!-- random connecting lines -->
-        <polyline points="10,30 30,20 45,38 70,30 85,10" />
-        <polyline points="15,90 40,110 55,95 80,105 95,80" />
-        <polyline points="5,160 35,150 60,170 95,160" />
-      </g>
-      <!-- dots -->
-      <g fill="#00ffb3" opacity="0.18">
-        <circle cx="10" cy="30" r="0.9"/>
-        <circle cx="30" cy="20" r="0.9"/>
-        <circle cx="45" cy="38" r="0.9"/>
-        <circle cx="70" cy="30" r="0.9"/>
-        <circle cx="85" cy="10" r="0.9"/>
 
-        <circle cx="15" cy="90" r="0.9"/>
-        <circle cx="40" cy="110" r="0.9"/>
-        <circle cx="55" cy="95" r="0.9"/>
-        <circle cx="80" cy="105" r="0.9"/>
-        <circle cx="95" cy="80" r="0.9"/>
-
-        <circle cx="5" cy="160" r="0.9"/>
-        <circle cx="35" cy="150" r="0.9"/>
-        <circle cx="60" cy="170" r="0.9"/>
-        <circle cx="95" cy="160" r="0.9"/>
-      </g>
-    </svg>
-  </div>
-
-  <main class="page">
+  <div class="container">
+    <!-- Header -->
     <header>
-      <div class="profile-section">
-        <div class="profile-photo">
-          <img src="https://i.ibb.co/JjCQ6KHG/x.jpg" alt="Profile Photo">
+      <div class="profile-wrapper">
+        <div class="avatar-3d">
+          <div class="avatar-inner">
+            <img src="https://i.ibb.co/JjCQ6KHG/x.jpg" alt="JOD MODS" />
+          </div>
+          <div class="avatar-glow"></div>
         </div>
+
         <div class="profile-info">
-          <div class="profile-name">JOD MODS</div>
-          <div class="profile-headline">STUDENT & DEVELOPER</div>
-          
-          <!-- Added Bio Section -->
-          <div class="profile-bio">
-            <div class="bio-item">
-              <span class="bio-label">NAME:</span>
-              <span class="bio-value">JOD MODS</span>
-            </div>
-            <div class="bio-item">
-              <span class="bio-label">AGE:</span>
-              <span class="bio-value">18+</span>
-            </div>
-            <div class="bio-item">
-              <span class="bio-label">LOCATION:</span>
-              <span class="bio-value">INDIA</span>
-            </div>
-            <div class="bio-item">
-              <span class="bio-label">INTEREST:</span>
-              <span class="bio-value">FF & BGMI HACK, TELEGRAM BOT, WEBSITE MAKING MANY MORE</span>
-            </div>
+          <h1 class="profile-name">JOD MODS</h1>
+          <div class="profile-title">
+            <span class="title-badge">⚡ STUDENT & DEVELOPER</span>
+            <span class="title-badge">🎮 GAMING EXPERT</span>
+            <span class="title-badge">🤖 BOT CREATOR</span>
           </div>
         </div>
       </div>
 
-      <!-- About Me Section - NOW FULLY VISIBLE -->
-      <div class="about-me">
-        <div class="about-title">ABOUT JOD MODS</div>
-        <div class="about-text">
-          Hello! I'm JOD MODS, a passionate developer and student from India with expertise in creating mods and hacks for popular games like Free Fire and BGMI. I specialize in developing Telegram bots, creating websites, and sharing my knowledge with the community. With a focus on quality and innovation, I provide premium tools and resources to enhance your gaming experience. My mission is to create useful tools that help gamers and developers alike. Join my community to stay updated with the latest mods, hacks, and earning opportunities!
+      <!-- Bio Grid -->
+      <div class="bio-grid">
+        <div class="bio-card">
+          <div class="bio-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="bio-label">NAME</div>
+          <div class="bio-value">JOD MODS</div>
+        </div>
+
+        <div class="bio-card">
+          <div class="bio-icon">
+            <i class="fas fa-cake-candles"></i>
+          </div>
+          <div class="bio-label">AGE</div>
+          <div class="bio-value">18+</div>
+        </div>
+
+        <div class="bio-card">
+          <div class="bio-icon">
+            <i class="fas fa-location-dot"></i>
+          </div>
+          <div class="bio-label">LOCATION</div>
+          <div class="bio-value">INDIA</div>
+        </div>
+
+        <div class="bio-card">
+          <div class="bio-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <div class="bio-label">INTERESTS</div>
+          <div class="bio-value">FF, BGMI, BOTS, WEB</div>
         </div>
       </div>
 
-      <div class="brand">
-        JOD MODS OFFICIAL APP STORE
-        <span class="stack">≡</span>
-      </div>
-
-      <!-- Search bar - FIXED (removed "Q." from placeholder) -->
-      <div class="search-wrap" role="search" aria-label="Search apps">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M21 21l-4.35-4.35" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" stroke-linecap="round"/>
-          <circle cx="11" cy="11" r="5" stroke="rgba(255,255,255,0.6)" stroke-width="1.6" fill="none"/>
-        </svg>
-        <input type="search" id="q" placeholder="Search for apps..." autocomplete="off" />
+      <!-- About Section - SHORT VERSION -->
+      <div class="about-section glass">
+        <h2 class="about-title">
+          <i class="fas fa-star"></i>
+          ABOUT ME
+        </h2>
+        <p class="about-text">
+          I'm JOD MODS, a developer & student from India. I create mods for FF & BGMI, build Telegram bots, and develop websites. Join my community for premium gaming tools and resources!
+        </p>
       </div>
     </header>
 
-    <section class="content">
-      <!-- App cards will be dynamically generated -->
-      <div class="not-found" id="not-found">NO APPS FOUND MATCHING YOUR SEARCH</div>
-    </section>
+    <!-- Brand Section -->
+    <div class="brand">
+      <span class="brand-text">JOD MODS OFFICIAL APP STORE</span>
+    </div>
 
+    <!-- Search Bar -->
+    <div class="search-wrapper">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search for apps..." />
+        <button class="search-btn" id="searchBtn">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Apps Grid -->
+    <div class="apps-grid" id="appsGrid">
+      <div class="not-found" id="notFound">
+        <i class="fas fa-search"></i>
+        <h3>No Apps Found</h3>
+        <p>Try searching with different keywords</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
-      © 2025 JOD MODS OFFICIAL APP STORE. ALL RIGHTS RESERVED.
+      <p class="footer-text">© 2025 JOD MODS OFFICIAL APP STORE. ALL RIGHTS RESERVED.</p>
+      <div class="social-links">
+        <a href="https://t.me/+iAqG140fdf9kYzVl" target="_blank" class="social-link">
+          <i class="fab fa-telegram"></i>
+        </a>
+        <a href="https://youtube.com/@jodxcheats_12?si=j__VFl4s5KorVJM5" target="_blank" class="social-link">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/jodxgamers?igsh=MmsweHdlNm1vbHQ4" target="_blank" class="social-link">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://whatsapp.com/channel/0029VbAVdQo4yltKfthn201e" target="_blank" class="social-link">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
     </footer>
-  </main>
+  </div>
 
-  <!-- Include particles.js library -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  
   <script>
-    // Initialize particles.js with SKY BLUE NEON CYBER style
-    document.addEventListener('DOMContentLoaded', function() {
-      particlesJS('particles-js', {
-        particles: {
-          number: {
-            value: 120,
-            density: {
-              enable: true,
-              value_area: 800
-            }
-          },
-          color: {
-            value: ["#00e0ff", "#00a6ff", "#00fffc"]
-          },
-          shape: {
-            type: "circle",
-            stroke: {
-              width: 0,
-              color: "#000000"
-            }
-          },
-          opacity: {
-            value: 0.7,
-            random: true,
-            anim: {
-              enable: true,
-              speed: 1,
-              opacity_min: 0.3,
-              sync: false
-            }
-          },
-          size: {
-            value: 3,
-            random: true,
-            anim: {
-              enable: true,
-              speed: 3,
-              size_min: 0.5,
-              sync: false
-            }
-          },
-          line_linked: {
-            enable: true,
-            distance: 120,
-            color: "#00e0ff",
-            opacity: 0.4,
-            width: 1.2
-          },
-          move: {
-            enable: true,
-            speed: 2,
-            direction: "none",
-            random: true,
-            straight: false,
-            out_mode: "out",
-            bounce: false,
-            attract: {
-              enable: false,
-              rotateX: 600,
-              rotateY: 1200
-            }
-          }
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: {
-              enable: true,
-              mode: "grab"
-            },
-            onclick: {
-              enable: true,
-              mode: "push"
-            },
-            resize: true
-          },
-          modes: {
-            grab: {
-              distance: 160,
-              line_linked: {
-                opacity: 0.8
-              }
-            },
-            push: {
-              particles_nb: 6
-            }
-          }
-        },
-        retina_detect: true
-      });
+    // Custom Cursor
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      
+      setTimeout(() => {
+        follower.style.left = e.clientX + 'px';
+        follower.style.top = e.clientY + 'px';
+      }, 100);
     });
 
-    // Updated app data with removed apps and new app at 2nd position
+    // Particles Initialization
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 100,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: ['#7c3aed', '#c026d3', '#06b6d4']
+        },
+        shape: {
+          type: 'circle'
+        },
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 2,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#7c3aed',
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: 'none',
+          random: true,
+          straight: false,
+          out_mode: 'out',
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: {
+            enable: true,
+            mode: 'grab'
+          },
+          onclick: {
+            enable: true,
+            mode: 'push'
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 200,
+            line_linked: {
+              opacity: 0.5
+            }
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+
+    // App Data
     const apps = [
       {
         id: 1,
-        name: "JOD MODS OFFICIAL CHANNEL🫶",
+        name: "JOD MODS OFFICIAL CHANNEL 🫶",
         icon: "https://i.ibb.co/JjCQ6KHG/x.jpg",
-        buttonText: "JOIN",
+        buttonText: "JOIN NOW",
         actionUrl: "https://t.me/+iAqG140fdf9kYzVl",
-        isPremium: true // First app gets premium styling
+        premium: true
       },
       {
         id: 2,
-        name: "JOD MODS EARNING",
+        name: "JOD MODS EARNING AREA",
         icon: "https://i.ibb.co/4wsDBv7V/x.jpg",
-        buttonText: "JOIN",
-        actionUrl: "https://t.me/JODEARNINGAREA",
-        isPremium: true // Second app gets premium styling
+        buttonText: "EARN NOW",
+        actionUrl: "https://t.me/JOD_EARNING_AREA",
+        premium: true
       },
       {
         id: 3,
-        name: "SUBSCRIBER TO MY CHANNEL❤️",
+        name: "YOUTUBE CHANNEL ❤️",
         icon: "https://i.ibb.co/1fKrwrzX/x.jpg",
         buttonText: "SUBSCRIBE",
-        actionUrl: "https://youtube.com/@jodxcheats_12?si=j__VFl4s5KorVJM5"
+        actionUrl: "https://youtube.com/@jodxcheats_12?si=j__VFl4s5KorVJM5",
+        premium: false
       },
       {
         id: 4,
-        name: "FOLLOW ME ON INSTAGRAM🎀",
+        name: "INSTAGRAM 🎀",
         icon: "https://i.ibb.co/Y7HqSTjb/x.jpg",
         buttonText: "FOLLOW",
-        actionUrl: "https://www.instagram.com/jodxgamers?igsh=MmsweHdlNm1vbHQ4"
+        actionUrl: "https://www.instagram.com/jodxgamers?igsh=MmsweHdlNm1vbHQ4",
+        premium: false
       },
       {
         id: 5,
-        name: "JOIN WHATSAPP CHANNEL 🫥",
+        name: "WHATSAPP CHANNEL 🫥",
         icon: "https://i.ibb.co/Zpqz9n33/x.jpg",
-        buttonText: "JOIN WHATSAPP",
-        actionUrl: "https://whatsapp.com/channel/0029VbAVdQo4yltKfthn201e"
+        buttonText: "JOIN",
+        actionUrl: "https://whatsapp.com/channel/0029VbAVdQo4yltKfthn201e",
+        premium: false
       },
       {
         id: 6,
-        name: "OWNER",
+        name: "CONTACT OWNER",
         icon: "https://i.ibb.co/JRFgqNpj/x.jpg",
-        buttonText: "CONTACT OWNER",
-        actionUrl: "tg://openmessage?user_id=6745501529"
+        buttonText: "MESSAGE",
+        actionUrl: "tg://openmessage?user_id=6745501529",
+        premium: false
       }
-      // Removed the last 2 apps about earning money
     ];
 
-    // Function to render app cards
-    function renderApps(appsToRender) {
-      const content = document.querySelector('.content');
-      const notFound = document.getElementById('not-found');
+    // Render Apps
+    const appsGrid = document.getElementById('appsGrid');
+    const notFound = document.getElementById('notFound');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    function renderApps(filteredApps) {
+      appsGrid.innerHTML = '';
       
-      // Clear existing content
-      content.innerHTML = '';
-      content.appendChild(notFound);
-      
-      if (appsToRender.length === 0) {
+      if (filteredApps.length === 0) {
         notFound.style.display = 'block';
+        appsGrid.appendChild(notFound);
         return;
       }
-      
+
       notFound.style.display = 'none';
-      
-      appsToRender.forEach(app => {
-        const appCard = document.createElement('article');
-        appCard.className = 'app-card';
-        
-        // Add premium-special class for first 2 apps
-        if (app.isPremium) {
-          appCard.classList.add('premium-special');
-        }
-        
-        appCard.setAttribute('aria-label', `App: ${app.name}`);
-        
-        // Premium badge for all apps
-        const premiumBadge = '<div class="premium-badge">Premium</div>';
+
+      filteredApps.forEach((app) => {
+        const appCard = document.createElement('div');
+        appCard.className = `app-card ${app.premium ? 'premium-special' : ''}`;
         
         appCard.innerHTML = `
-          ${premiumBadge}
-          <div class="app-thumb">
-            <img src="${app.icon}" alt="${app.name} icon">
+          <div class="premium-badge">PREMIUM</div>
+          <div class="app-icon">
+            <img src="${app.icon}" alt="${app.name}" />
           </div>
-          <div class="app-title">${app.name}</div>
-          <button class="download-btn" onclick="performAction(${app.id})">${app.buttonText}</button>
+          <h3 class="app-title">${app.name}</h3>
+          <button class="app-btn" onclick="window.open('${app.actionUrl}', '_blank')">
+            ${app.buttonText} <i class="fas fa-arrow-right"></i>
+          </button>
         `;
         
-        content.appendChild(appCard);
+        appsGrid.appendChild(appCard);
       });
     }
 
-    // Function to handle app action
-    function performAction(appId) {
-      const app = apps.find(a => a.id === appId);
-      if (!app) return;
-      
-      if (app.actionUrl === '#') {
-        alert(`Action for "${app.name}" is not configured.`);
-        return;
-      }
-      
-      // Open in new tab to prevent direct URL access
-      window.open(app.actionUrl, '_blank', 'noopener,noreferrer');
-    }
-
-    // Search functionality
-    const searchInput = document.getElementById('q');
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase().trim();
+    // Search Function
+    function searchApps() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
       
       if (searchTerm === '') {
         renderApps(apps);
         return;
       }
-      
-      const filteredApps = apps.filter(app => 
+
+      const filtered = apps.filter(app => 
         app.name.toLowerCase().includes(searchTerm)
       );
-      
-      renderApps(filteredApps);
-    });
 
-    // Initial render
+      renderApps(filtered);
+    }
+
+    // Event Listeners
+    searchInput.addEventListener('input', searchApps);
+    searchBtn.addEventListener('click', searchApps);
+
+    // Initial Render
     renderApps(apps);
 
-    // Prevent right-click context menu on entire page
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      return false;
-    });
+    // Security Features
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('selectstart', (e) => e.preventDefault());
+    document.addEventListener('dragstart', (e) => e.preventDefault());
 
-    // Prevent drag and drop of images
-    document.addEventListener('dragstart', function(e) {
-      if (e.target.tagName === 'IMG') {
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'J')
+      ) {
         e.preventDefault();
-        return false;
-      }
-    });
-
-    // Disable text selection on app cards
-    document.addEventListener('selectstart', function(e) {
-      if (e.target.closest('.app-card') || e.target.closest('.profile-section')) {
-        e.preventDefault();
-        return false;
       }
     });
 
-    // Additional protection: Disable developer tools
-    document.addEventListener('keydown', function(e) {
-      // Disable F12
-      if(e.key === 'F12') {
-        e.preventDefault();
-        return false;
-      }
-      
-      // Disable Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+Shift+J
-      if(e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
-        e.preventDefault();
-        return false;
-      }
-      
-      // Disable right click
-      if(e.button === 2) {
-        e.preventDefault();
-        return false;
-      }
-    });
-
-    // Protect against image download extensions
-    document.addEventListener('mousedown', function(e) {
-      if (e.target.tagName === 'IMG') {
-        // Prevent default action for right click
-        if (e.button === 2) {
-          e.preventDefault();
-          return false;
-        }
-      }
-    });
-
-    // Disable image dragging
-    const allImages = document.querySelectorAll('img');
-    allImages.forEach(img => {
+    // Disable Image Dragging
+    document.querySelectorAll('img').forEach(img => {
       img.setAttribute('draggable', 'false');
     });
   </script>
