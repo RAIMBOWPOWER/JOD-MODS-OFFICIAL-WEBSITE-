@@ -326,20 +326,19 @@
 
     /* —— APP CARD —— */
     .app-card {
-      padding: 22px 24px 22px 22px;
+      padding: 20px 22px 20px 20px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 32px;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
     }
     .app-card:hover {
-      transform: translateY(-10px) scale(1.01);
+      transform: translateY(-8px) scale(1.01);
       background: rgba(255, 255, 255, 0.04);
       border-color: rgba(124, 58, 237, 0.15);
       box-shadow: 0 28px 50px -16px rgba(0, 0, 0, 0.7);
@@ -399,6 +398,32 @@
       border-radius: 40px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
+    }
+
+    /* —— ACTION BUTTON —— */
+    .app-btn {
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      color: white;
+      font-size: 16px;
+      width: 42px;
+      height: 42px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .app-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 0 30px rgba(192, 38, 211, 0.3);
+    }
+    .app-btn i {
+      font-size: 18px;
     }
 
     /* —— premium animated border —— */
@@ -489,7 +514,8 @@
     @media (max-width: 480px) {
       .bio-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .profile-titles h1 { font-size: 30px; }
-      .app-card { padding: 16px 16px; }
+      .app-card { padding: 14px 14px; flex-wrap: wrap; }
+      .app-btn { width: 38px; height: 38px; font-size: 14px; }
       .social-footer a { width: 52px; height: 52px; font-size: 24px; }
       .avatar-3d { width: 80px; height: 80px; }
     }
@@ -530,7 +556,7 @@
     <!-- ===== BIO CARDS ===== -->
     <div class="bio-grid">
       <div class="bio-card"><div class="label">NAME</div><div class="value">JOD MODS</div></div>
-      <div class="bio-card"><div class="label">AGE</div><div class="value">18+</div></div>
+      <div class="bio-card"><div class="label">AGE</div><div class="value">20+</div></div>
       <div class="bio-card"><div class="label">LOCATION</div><div class="value">INDIA</div></div>
       <div class="bio-card"><div class="label">INTERESTS</div><div class="value">FF, BGMI, BOTS, WEB</div></div>
     </div>
@@ -571,7 +597,7 @@
     (function() {
       "use strict";
 
-      // ===== APPS DATA =====
+      // ===== APPS DATA (with correct icons) =====
       const apps = [
         { name: "JOD MODS OFFICIAL CHANNEL 🫶", icon: "https://i.ibb.co/JjCQ6KHG/x.jpg", url: "https://t.me/+iAqG140fdf9kYzVl", premium: true },
         { name: "ALL FEEDBACK", icon: "https://i.ibb.co/gbQ0QMKr/x.jpg", url: "https://t.me/PAD_HACK_AVAILAVLE", premium: true },
@@ -598,22 +624,34 @@
           const premiumClass = app.premium ? 'premium' : '';
           const badgeHtml = app.premium ? '<span class="premium-badge">★ premium</span>' : '';
           html += `
-            <div class="app-card ${premiumClass}" data-url="${app.url}">
+            <div class="app-card ${premiumClass}">
               <div class="icon-wrap"><img src="${app.icon}" alt="${app.name} icon" loading="lazy" /></div>
               <div class="info">
                 <h4>${app.name}</h4>
                 <div class="sub">${badgeHtml} <span>${app.premium ? '✨' : '🔗'}</span></div>
               </div>
+              <button class="app-btn" data-url="${app.url}" aria-label="Open ${app.name}"><i class="fas fa-arrow-right"></i></button>
             </div>
           `;
         });
         grid.innerHTML = html;
 
-        // click → open url
-        document.querySelectorAll('.app-card').forEach(card => {
-          card.addEventListener('click', function(e) {
+        // Attach click event to each button
+        document.querySelectorAll('.app-btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();  // prevent card click if any
             const url = this.dataset.url;
             if (url) window.open(url, '_blank');
+          });
+        });
+
+        // (optional) if someone clicks the card itself, we can also open, but we have button now
+        document.querySelectorAll('.app-card').forEach(card => {
+          card.addEventListener('click', function(e) {
+            // if the click is not on the button, we can still open via card (optional)
+            // but we already have button, so we keep it consistent: only button opens
+            // but for better UX, we can also open on card click (except when clicking button)
+            // but button handles it, we do nothing extra to avoid double open.
           });
         });
       }
