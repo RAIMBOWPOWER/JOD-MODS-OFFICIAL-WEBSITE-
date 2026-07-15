@@ -597,14 +597,14 @@
     (function() {
       "use strict";
 
-      // ===== APPS DATA (with correct icons) =====
+      // ===== APPS DATA (UPDATED ICONS) =====
       const apps = [
         { name: "JOD MODS OFFICIAL CHANNEL 🫶", icon: "https://i.ibb.co/JjCQ6KHG/x.jpg", url: "https://t.me/+iAqG140fdf9kYzVl", premium: true },
         { name: "ALL FEEDBACK", icon: "https://i.ibb.co/gbQ0QMKr/x.jpg", url: "https://t.me/PAD_HACK_AVAILAVLE", premium: true },
-        { name: "YOUTUBE CHANNEL ❤️", icon: "https://i.ibb.co/cSyGTbZ4/x.jpg", url: "https://youtube.com/@jodxcheats_12?si=j__VFl4s5KorVJM5", premium: false },
-        { name: "INSTAGRAM 🎀", icon: "https://i.ibb.co/rK7PT0fG/x.jpg", url: "https://www.instagram.com/jodxgamers?igsh=MmsweHdlNm1vbHQ4", premium: false },
+        { name: "YOUTUBE CHANNEL ❤️", icon: "https://i.ibb.co/tTdqGfTW/x.jpg", url: "https://youtube.com/@jodxcheats_12?si=j__VFl4s5KorVJM5", premium: false },
+        { name: "INSTAGRAM 🎀", icon: "https://i.ibb.co/n8m6GDvC/x.jpg", url: "https://www.instagram.com/jodxgamers?igsh=MmsweHdlNm1vbHQ4", premium: false },
         { name: "WHATSAPP CHANNEL 🫥", icon: "https://i.ibb.co/rRQqYBkW/x.jpg", url: "https://whatsapp.com/channel/0029VbAVdQo4yltKfthn201e", premium: false },
-        { name: "CONTACT OWNER", icon: "https://i.ibb.co/hJDsrs0H/x.jpg", url: "tg://openmessage?user_id=6745501529", premium: false }
+        { name: "CONTACT OWNER", icon: "https://i.ibb.co/yns3Vz41/x.jpg", url: "tg://openmessage?user_id=6745501529", premium: false }
       ];
 
       const grid = document.getElementById('appsGrid');
@@ -639,19 +639,9 @@
         // Attach click event to each button
         document.querySelectorAll('.app-btn').forEach(btn => {
           btn.addEventListener('click', function(e) {
-            e.stopPropagation();  // prevent card click if any
+            e.stopPropagation();
             const url = this.dataset.url;
             if (url) window.open(url, '_blank');
-          });
-        });
-
-        // (optional) if someone clicks the card itself, we can also open, but we have button now
-        document.querySelectorAll('.app-card').forEach(card => {
-          card.addEventListener('click', function(e) {
-            // if the click is not on the button, we can still open via card (optional)
-            // but we already have button, so we keep it consistent: only button opens
-            // but for better UX, we can also open on card click (except when clicking button)
-            // but button handles it, we do nothing extra to avoid double open.
           });
         });
       }
